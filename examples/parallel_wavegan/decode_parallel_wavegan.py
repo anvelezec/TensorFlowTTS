@@ -32,7 +32,7 @@ def main():
     """Run parallel_wavegan decoding from folder."""
     parser = argparse.ArgumentParser(
         description="Generate Audio from melspectrogram with trained melgan "
-        "(See detail in examples/parallel_wavegan/decode_parallel_wavegan.py)."
+        "(See detail in examples_tts/parallel_wavegan/decode_parallel_wavegan.py)."
     )
     parser.add_argument(
         "--rootdir",

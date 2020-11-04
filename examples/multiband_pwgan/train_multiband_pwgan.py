@@ -34,8 +34,8 @@ import yaml
 from tensorflow.keras.mixed_precision import experimental as mixed_precision
 
 import tensorflow_tts
-from examples.melgan.audio_mel_dataset import AudioMelDataset
-from examples.melgan.train_melgan import MelganTrainer, collater
+from examples_tts.melgan.audio_mel_dataset import AudioMelDataset
+from examples_tts.melgan.train_melgan import MelganTrainer, collater
 from tensorflow_tts.configs import (MultiBandMelGANDiscriminatorConfig,
                                     MultiBandMelGANGeneratorConfig)
 from tensorflow_tts.losses import TFMultiResolutionSTFT
@@ -274,7 +274,7 @@ class MultiBandMelganTrainer(MelganTrainer):
 def main():
     """Run training process."""
     parser = argparse.ArgumentParser(
-        description="Train MultiBand MelGAN (See detail in examples/multiband_melgan/train_multiband_melgan.py)"
+        description="Train MultiBand MelGAN (See detail in examples_tts/multiband_melgan/train_multiband_melgan.py)"
     )
     parser.add_argument(
         "--train-dir",

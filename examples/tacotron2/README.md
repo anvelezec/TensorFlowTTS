@@ -1,21 +1,21 @@
 # Tacotron 2
-Based on the script [`train_tacotron2.py`](https://github.com/dathudeptrai/TensorflowTTS/blob/master/examples/tacotron2/train_tacotron2.py).
+Based on the script [`train_tacotron2.py`](https://github.com/dathudeptrai/TensorflowTTS/blob/master/examples_tts/tacotron2/train_tacotron2.py).
 
 ## Training Tacotron-2 from scratch with LJSpeech dataset.
 This example code show you how to train Tactron-2 from scratch with Tensorflow 2 based on custom training loop and tf.function. The data used for this example is LJSpeech, you can download the dataset at  [link](https://keithito.com/LJ-Speech-Dataset/).
 
 ### Step 1: Create Tensorflow based Dataloader (tf.dataset)
-First, you need define data loader based on AbstractDataset class (see [`abstract_dataset.py`](https://github.com/dathudeptrai/TensorflowTTS/blob/master/tensorflow_tts/datasets/abstract_dataset.py)). On this example, a dataloader read dataset from path. I use suffix to classify what file is a charactor and mel-spectrogram (see [`tacotron_dataset.py`](https://github.com/dathudeptrai/TensorflowTTS/blob/master/examples/tacotron2/tacotron_dataset.py)). If you already have preprocessed version of your target dataset, you don't need to use this example dataloader, you just need refer my dataloader and modify **generator function** to adapt with your case. Normally, a generator function should return [charactor_ids, char_length, mel, mel_length], here i also return guided attention (see [`DC_TTS`](https://arxiv.org/pdf/1710.08969.pdf)) to support training.
+First, you need define data loader based on AbstractDataset class (see [`abstract_dataset.py`](https://github.com/dathudeptrai/TensorflowTTS/blob/master/tensorflow_tts/datasets/abstract_dataset.py)). On this example, a dataloader read dataset from path. I use suffix to classify what file is a charactor and mel-spectrogram (see [`tacotron_dataset.py`](https://github.com/dathudeptrai/TensorflowTTS/blob/master/examples_tts/tacotron2/tacotron_dataset.py)). If you already have preprocessed version of your target dataset, you don't need to use this example dataloader, you just need refer my dataloader and modify **generator function** to adapt with your case. Normally, a generator function should return [charactor_ids, char_length, mel, mel_length], here i also return guided attention (see [`DC_TTS`](https://arxiv.org/pdf/1710.08969.pdf)) to support training.
 
 ### Step 2: Training from scratch
-After you redefine your dataloader, pls modify an input arguments, train_dataset and valid_dataset from [`train_tacotron2.py`](https://github.com/dathudeptrai/TensorflowTTS/blob/master/examples/tacotron2/train_tacotron2.py). Here is an example command line to training tacotron-2 from scratch:
+After you redefine your dataloader, pls modify an input arguments, train_dataset and valid_dataset from [`train_tacotron2.py`](https://github.com/dathudeptrai/TensorflowTTS/blob/master/examples_tts/tacotron2/train_tacotron2.py). Here is an example command line to training tacotron-2 from scratch:
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python examples/tacotron2/train_tacotron2.py \
+CUDA_VISIBLE_DEVICES=0 python examples_tts/tacotron2/train_tacotron2.py \
   --train-dir ./dump/train/ \
   --dev-dir ./dump/valid/ \
-  --outdir ./examples/tacotron2/exp/train.tacotron2.v1/ \
-  --config ./examples/tacotron2/conf/tacotron2.v1.yaml \
+  --outdir ./examples_tts/tacotron2/exp/train.tacotron2.v1/ \
+  --config ./examples_tts/tacotron2/conf/tacotron2.v1.yaml \
   --use-norm 1 \
   --mixed_precision 0 \
   --resume ""
@@ -26,7 +26,7 @@ IF you want to use MultiGPU to training you can replace `CUDA_VISIBLE_DEVICES=0`
 In case you want to resume the training progress, please following below example command line:
 
 ```bash
---resume ./examples/tacotron2/exp/train.tacotron2.v1/checkpoints/ckpt-100000
+--resume ./examples_tts/tacotron2/exp/train.tacotron2.v1/checkpoints/ckpt-100000
 ```
 
 If you want to finetune a model, use `--pretrained` like this with your model filename
@@ -38,11 +38,11 @@ If you want to finetune a model, use `--pretrained` like this with your model fi
 To running inference on folder ids (charactor), run below command line:
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python examples/tacotron2/decode_tacotron2.py \
+CUDA_VISIBLE_DEVICES=0 python examples_tts/tacotron2/decode_tacotron2.py \
   --rootdir ./dump/valid/ \
   --outdir ./prediction/tacotron2-120k/ \
-  --checkpoint ./examples/tacotron2/exp/train.tacotron2.v1/checkpoints/model-120000.h5 \
-  --config ./examples/tacotron2/conf/tacotron2.v1.yaml \
+  --checkpoint ./examples_tts/tacotron2/exp/train.tacotron2.v1/checkpoints/model-120000.h5 \
+  --config ./examples_tts/tacotron2/conf/tacotron2.v1.yaml \
   --batch-size 32
 ```
 
@@ -51,12 +51,12 @@ You may need to extract durations for student models like fastspeech. Here we us
 
 Extract for valid set: 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python examples/tacotron2/extract_duration.py \
+CUDA_VISIBLE_DEVICES=0 python examples_tts/tacotron2/extract_duration.py \
   --rootdir ./dump/valid/ \
   --outdir ./dump/valid/durations/ \
-  --checkpoint ./examples/tacotron2/exp/train.tacotron2.v1/checkpoints/model-65000.h5 \
+  --checkpoint ./examples_tts/tacotron2/exp/train.tacotron2.v1/checkpoints/model-65000.h5 \
   --use-norm 1 \
-  --config ./examples/tacotron2/conf/tacotron2.v1.yaml \
+  --config ./examples_tts/tacotron2/conf/tacotron2.v1.yaml \
   --batch-size 32
   --win-front 3 \
   --win-back 3
@@ -64,12 +64,12 @@ CUDA_VISIBLE_DEVICES=0 python examples/tacotron2/extract_duration.py \
 
 Extract for training set:
 ```bash
-CUDA_VISIBLE_DEVICES=0 python examples/tacotron2/extract_duration.py \
+CUDA_VISIBLE_DEVICES=0 python examples_tts/tacotron2/extract_duration.py \
   --rootdir ./dump/train/ \
   --outdir ./dump/train/durations/ \
-  --checkpoint ./examples/tacotron2/exp/train.tacotron2.v1/checkpoints/model-65000.h5 \
+  --checkpoint ./examples_tts/tacotron2/exp/train.tacotron2.v1/checkpoints/model-65000.h5 \
   --use-norm 1 \
-  --config ./examples/tacotron2/conf/tacotron2.v1.yaml \
+  --config ./examples_tts/tacotron2/conf/tacotron2.v1.yaml \
   --batch-size 32
   --win-front 3 \
   --win-back 3
@@ -86,13 +86,13 @@ tacotron_config.vocab_size = NEW_VOCAB_SIZE
 tacotron2 = TFTacotron2(config=tacotron_config, training=True, name='tacotron2')
 tacotron2._build()
 tacotron2.summary()
-tacotron2.load_weights("./examples/tacotron2/exp/train.tacotron2.v1/checkpoints/model-120000.h5", by_name=True, skip_mismatch=True)
+tacotron2.load_weights("./examples_tts/tacotron2/exp/train.tacotron2.v1/checkpoints/model-120000.h5", by_name=True, skip_mismatch=True)
 ... # training as normal.
 ```
 You can also define `var_train_expr` in config file to let model training only on some layers in case you want to fine-tune on your dataset with the same pretrained language and processor. For example, `var_train_expr: "embeddings|encoder|decoder"` means we just training all variables that `embeddings`, `encoder`, `decoder` exist in its name.
 
 ## Results
-Here is a result of tacotron2 based on this config [`tacotron2.v1.yaml`](https://github.com/dathudeptrai/TensorflowTTS/blob/tacotron-2-example/examples/tacotron-2/conf/tacotron2.v1.yaml) but with reduction_factor = 7, we will update learning curves for reduction_factor = 1.
+Here is a result of tacotron2 based on this config [`tacotron2.v1.yaml`](https://github.com/dathudeptrai/TensorflowTTS/blob/tacotron-2-example/examples_tts/tacotron-2/conf/tacotron2.v1.yaml) but with reduction_factor = 7, we will update learning curves for reduction_factor = 1.
 
 ### Alignments progress
 <img src="fig/alignment.gif" height="300">
@@ -114,8 +114,8 @@ Here is a result of tacotron2 based on this config [`tacotron2.v1.yaml`](https:/
 ## Pretrained Models and Audio samples
 | Model                                                                                                          | Conf                                                                                                                        | Lang  | Fs [Hz] | Mel range [Hz] | FFT / Hop / Win [pt] | # iters | reduction factor|
 | :------                                                                                                        | :---:                                                                                                                       | :---: | :----:  | :--------:     | :---------------:    | :-----: |  :-----: |
-| [tacotron2.v1](https://drive.google.com/open?id=1kaPXRdLg9gZrll9KtvH3-feOBMM8sn3_)             | [link](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/tacotron2/conf/tacotron2.v1.yaml)          | EN    | 22.05k  | 80-7600        | 1024 / 256 / None    | 65K    | 1
-| [tacotron2.v1](https://drive.google.com/drive/folders/1WMBe01BBnYf3sOxMhbvnF2CUHaRTpBXJ?usp=sharing)             | [link](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/tacotron2/conf/tacotron2.kss.v1.yaml)          | KO    | 22.05k  | 80-7600        | 1024 / 256 / None    | 100K    | 1
+| [tacotron2.v1](https://drive.google.com/open?id=1kaPXRdLg9gZrll9KtvH3-feOBMM8sn3_)             | [link](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/tacotron2/conf/tacotron2.v1.yaml)          | EN    | 22.05k  | 80-7600        | 1024 / 256 / None    | 65K    | 1
+| [tacotron2.v1](https://drive.google.com/drive/folders/1WMBe01BBnYf3sOxMhbvnF2CUHaRTpBXJ?usp=sharing)             | [link](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/tacotron2/conf/tacotron2.kss.v1.yaml)          | KO    | 22.05k  | 80-7600        | 1024 / 256 / None    | 100K    | 1
 
 ## Reference
 

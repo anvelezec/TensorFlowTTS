@@ -47,18 +47,18 @@ def test_auto_processor(mapper_path):
 @pytest.mark.parametrize(
     "config_path", 
     [
-        "./examples/fastspeech/conf/fastspeech.v1.yaml", 
-        "./examples/fastspeech/conf/fastspeech.v3.yaml", 
-        "./examples/fastspeech2/conf/fastspeech2.v1.yaml",
-        "./examples/fastspeech2/conf/fastspeech2.v2.yaml",
-        "./examples/fastspeech2/conf/fastspeech2.kss.v1.yaml",
-        "./examples/fastspeech2/conf/fastspeech2.kss.v2.yaml",
-        "./examples/melgan/conf/melgan.v1.yaml",
-        "./examples/melgan.stft/conf/melgan.stft.v1.yaml",
-        "./examples/multiband_melgan/conf/multiband_melgan.v1.yaml",
-        "./examples/tacotron2/conf/tacotron2.v1.yaml",
-        "./examples/tacotron2/conf/tacotron2.kss.v1.yaml",
-        "./examples/parallel_wavegan/conf/parallel_wavegan.v1.yaml",
+        "./examples_tts/fastspeech/conf/fastspeech.v1.yaml", 
+        "./examples_tts/fastspeech/conf/fastspeech.v3.yaml", 
+        "./examples_tts/fastspeech2/conf/fastspeech2.v1.yaml",
+        "./examples_tts/fastspeech2/conf/fastspeech2.v2.yaml",
+        "./examples_tts/fastspeech2/conf/fastspeech2.kss.v1.yaml",
+        "./examples_tts/fastspeech2/conf/fastspeech2.kss.v2.yaml",
+        "./examples_tts/melgan/conf/melgan.v1.yaml",
+        "./examples_tts/melgan.stft/conf/melgan.stft.v1.yaml",
+        "./examples_tts/multiband_melgan/conf/multiband_melgan.v1.yaml",
+        "./examples_tts/tacotron2/conf/tacotron2.v1.yaml",
+        "./examples_tts/tacotron2/conf/tacotron2.kss.v1.yaml",
+        "./examples_tts/parallel_wavegan/conf/parallel_wavegan.v1.yaml",
      ]
 )
 def test_auto_model(config_path):

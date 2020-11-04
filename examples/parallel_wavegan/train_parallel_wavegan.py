@@ -34,8 +34,8 @@ import yaml
 
 import tensorflow_tts
 
-from examples.melgan.audio_mel_dataset import AudioMelDataset
-from examples.melgan.train_melgan import collater
+from examples_tts.melgan.audio_mel_dataset import AudioMelDataset
+from examples_tts.melgan.train_melgan import collater
 
 from tensorflow_tts.configs import (
     ParallelWaveGANGeneratorConfig,
@@ -244,7 +244,7 @@ class ParallelWaveganTrainer(GanBasedTrainer):
 def main():
     """Run training process."""
     parser = argparse.ArgumentParser(
-        description="Train ParallelWaveGan (See detail in tensorflow_tts/examples/parallel_wavegan/train_parallel_wavegan.py)"
+        description="Train ParallelWaveGan (See detail in tensorflow_tts/examples_tts/parallel_wavegan/train_parallel_wavegan.py)"
     )
     parser.add_argument(
         "--train-dir",

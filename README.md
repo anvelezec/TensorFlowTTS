@@ -19,16 +19,16 @@
 :zany_face: TensorFlowTTS provides real-time state-of-the-art speech synthesis architectures such as Tacotron-2, Melgan, Multiband-Melgan, FastSpeech, FastSpeech2 based-on TensorFlow 2. With Tensorflow 2, we can speed-up training/inference progress, optimizer further by using [fake-quantize aware](https://www.tensorflow.org/model_optimization/guide/quantization/training_comprehensive_guide) and [pruning](https://www.tensorflow.org/model_optimization/guide/pruning/pruning_with_keras), make TTS models can be run faster than real-time and be able to deploy on mobile devices or embedded systems.
 
 ## What's new
-- 2020/08/23 **(NEW!)** Add Parallel WaveGAN tensorflow implementation. See [here](https://github.com/TensorSpeech/TensorFlowTTS/tree/master/examples/parallel_wavegan)
-- 2020/08/23 **(NEW!)** Add MBMelGAN G + ParallelWaveGAN G example. See [here](https://github.com/TensorSpeech/TensorFlowTTS/tree/master/examples/multiband_pwgan)
-- 2020/08/20 **(NEW!)** Add C++ inference code. Thank [@ZDisket](https://github.com/ZDisket). See [here](https://github.com/TensorSpeech/TensorFlowTTS/tree/master/examples/cppwin)
+- 2020/08/23 **(NEW!)** Add Parallel WaveGAN tensorflow implementation. See [here](https://github.com/TensorSpeech/TensorFlowTTS/tree/master/examples_tts/parallel_wavegan)
+- 2020/08/23 **(NEW!)** Add MBMelGAN G + ParallelWaveGAN G example. See [here](https://github.com/TensorSpeech/TensorFlowTTS/tree/master/examples_tts/multiband_pwgan)
+- 2020/08/20 **(NEW!)** Add C++ inference code. Thank [@ZDisket](https://github.com/ZDisket). See [here](https://github.com/TensorSpeech/TensorFlowTTS/tree/master/examples_tts/cppwin)
 - 2020/08/18 **(NEW!)** Update [new base processor](https://github.com/TensorSpeech/TensorFlowTTS/blob/master/tensorflow_tts/processor/base_processor.py). Add [AutoProcessor](https://github.com/TensorSpeech/TensorFlowTTS/blob/master/tensorflow_tts/inference/auto_processor.py) and [pretrained processor](https://github.com/TensorSpeech/TensorFlowTTS/blob/master/tensorflow_tts/processor/pretrained/) json file.
 - 2020/08/14 **(NEW!)** Support Chinese TTS. Pls see the [colab](https://colab.research.google.com/drive/1YpSHRBRPBI7cnTkQn1UcVTWEQVbsUm1S?usp=sharing). Thank [@azraelkuan](https://github.com/azraelkuan).
 - 2020/08/05 **(NEW!)** Support Korean TTS. Pls see the [colab](https://colab.research.google.com/drive/1ybWwOS5tipgPFttNulp77P6DAB5MtiuN?usp=sharing). Thank [@crux153](https://github.com/crux153).
 - 2020/07/17 Support MultiGPU for all Trainer.
 - 2020/07/05 Support Convert Tacotron-2, FastSpeech to Tflite. Pls see the [colab](https://colab.research.google.com/drive/1HudLLpT9CQdh2k04c06bHUwLubhGTWxA?usp=sharing). Thank @jaeyoo from the TFlite team for his support.
 - 2020/06/20 [FastSpeech2](https://arxiv.org/abs/2006.04558) implementation with Tensorflow is supported.
-- 2020/06/07 [Multi-band MelGAN (MB MelGAN)](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples/multiband_melgan/) implementation with Tensorflow is supported.
+- 2020/06/07 [Multi-band MelGAN (MB MelGAN)](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples_tts/multiband_melgan/) implementation with Tensorflow is supported.
 
 
 ## Features
@@ -62,7 +62,7 @@ Different Tensorflow version should be working but not tested yet. This repo wil
 $ pip install TensorFlowTTS
 ```
 ### From source
-Examples are included in the repository but are not shipped with the framework. Therefore, to run the latest version of examples, you need to install the source below.
+Examples are included in the repository but are not shipped with the framework. Therefore, to run the latest version of examples_tts, you need to install the source below.
 ```bash
 $ git clone https://github.com/TensorSpeech/TensorFlowTTS.git
 $ cd TensorFlowTTS
@@ -130,7 +130,7 @@ tensorflow-tts-normalize --rootdir ./dump_[ljspeech/kss/baker/libritts] --outdir
 
 Right now we only support [`ljspeech`](https://keithito.com/LJ-Speech-Dataset/), [`kss`](https://www.kaggle.com/bryanpark/korean-single-speaker-speech-dataset), [`baker`](https://weixinxcxdb.oss-cn-beijing.aliyuncs.com/gwYinPinKu/BZNSYP.rar) and [`libritts`](http://www.openslr.org/60/) for dataset argument. In the future, we intend to support more datasets.
 
-**Note**: To run `libritts` preprocessing, please first read the instruction in [examples/fastspeech2_libritts](https://github.com/TensorSpeech/TensorFlowTTS/tree/master/examples/fastspeech2_libritts). We need to reformat it first before run preprocessing.
+**Note**: To run `libritts` preprocessing, please first read the instruction in [examples_tts/fastspeech2_libritts](https://github.com/TensorSpeech/TensorFlowTTS/tree/master/examples_tts/fastspeech2_libritts). We need to reformat it first before run preprocessing.
 
 After preprocessing, the structure of the project folder should be:
 ```
@@ -183,7 +183,7 @@ After preprocessing, the structure of the project folder should be:
 |   |- stats_energy.npy
 |   |- train_utt_ids.npy
 |   |- valid_utt_ids.npy
-|- examples/
+|- examples_tts/
 |   |- melgan/
 |   |- fastspeech/
 |   |- tacotron2/
@@ -206,15 +206,15 @@ We use suffix (`ids`, `raw-feats`, `raw-energy`, `raw-f0`, `norm-feats`, and `wa
 
 To know how to train model from scratch or fine-tune with other datasets/languages, please see detail at example directory.
 
-- For Tacotron-2 tutorial, pls see [examples/tacotron2](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/tacotron2)
-- For FastSpeech tutorial, pls see [examples/fastspeech](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/fastspeech)
-- For FastSpeech2 tutorial, pls see [examples/fastspeech2](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/fastspeech2)
-- For FastSpeech2 + MFA tutorial, pls see [examples/fastspeech2_libritts](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/fastspeech2_libritts)
-- For MelGAN tutorial, pls see [examples/melgan](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/melgan)
-- For MelGAN + STFT Loss tutorial, pls see [examples/melgan.stft](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/melgan.stft)
-- For Multiband-MelGAN tutorial, pls see [examples/multiband_melgan](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/multiband_melgan)
-- For Parallel WaveGAN tutorial, pls see [examples/parallel_wavegan](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/parallel_wavegan)
-- For Multiband-MelGAN Generator + Parallel WaveGAN Discriminator tutorial, pls see [examples/multiband_pwgan](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples/multiband_pwgan)
+- For Tacotron-2 tutorial, pls see [examples_tts/tacotron2](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/tacotron2)
+- For FastSpeech tutorial, pls see [examples_tts/fastspeech](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/fastspeech)
+- For FastSpeech2 tutorial, pls see [examples_tts/fastspeech2](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/fastspeech2)
+- For FastSpeech2 + MFA tutorial, pls see [examples_tts/fastspeech2_libritts](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/fastspeech2_libritts)
+- For MelGAN tutorial, pls see [examples_tts/melgan](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/melgan)
+- For MelGAN + STFT Loss tutorial, pls see [examples_tts/melgan.stft](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/melgan.stft)
+- For Multiband-MelGAN tutorial, pls see [examples_tts/multiband_melgan](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/multiband_melgan)
+- For Parallel WaveGAN tutorial, pls see [examples_tts/parallel_wavegan](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/parallel_wavegan)
+- For Multiband-MelGAN Generator + Parallel WaveGAN Discriminator tutorial, pls see [examples_tts/multiband_pwgan](https://github.com/tensorspeech/TensorFlowTTS/tree/master/examples_tts/multiband_pwgan)
 # Abstract Class Explaination
 
 ## Abstract DataLoader Tensorflow-based dataset
@@ -232,7 +232,7 @@ A detail implementation of abstract dataset class from [tensorflow_tts/dataset/a
 - If you do shuffle before cache, the dataset won't shuffle when it re-iterate over datasets.
 - You should apply map_fn to make each element return from **generator** function have the same length before getting batch and feed it into a model.
 
-Some examples to use this **abstract_dataset** are [tacotron_dataset.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples/tacotron2/tacotron_dataset.py), [fastspeech_dataset.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples/fastspeech/fastspeech_dataset.py), [melgan_dataset.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples/melgan/audio_mel_dataset.py), [fastspeech2_dataset.py](https://github.com/TensorSpeech/TensorFlowTTS/blob/master/examples/fastspeech2/fastspeech2_dataset.py)
+Some examples to use this **abstract_dataset** are [tacotron_dataset.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples_tts/tacotron2/tacotron_dataset.py), [fastspeech_dataset.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples_tts/fastspeech/fastspeech_dataset.py), [melgan_dataset.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples_tts/melgan/audio_mel_dataset.py), [fastspeech2_dataset.py](https://github.com/TensorSpeech/TensorFlowTTS/blob/master/examples_tts/fastspeech2/fastspeech2_dataset.py)
 
 
 ## Abstract Trainer Class
@@ -243,9 +243,9 @@ A detail implementation of base_trainer from [tensorflow_tts/trainer/base_traine
 - **generate_and_save_intermediate_result**: This function will save intermediate result such as: plot alignment, save audio generated, plot mel-spectrogram ...
 - **compute_per_example_losses**: This function will compute per_example_loss for model, note that all element of the loss **MUST** has shape [batch_size].
 
-All models on this repo are trained based-on **GanBasedTrainer** (see [train_melgan.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples/melgan/train_melgan.py), [train_melgan_stft.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples/melgan.stft/train_melgan_stft.py), [train_multiband_melgan.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples/multiband_melgan/train_multiband_melgan.py)) and **Seq2SeqBasedTrainer** (see [train_tacotron2.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples/tacotron2/train_tacotron2.py), [train_fastspeech.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples/fastspeech/train_fastspeech.py)).
+All models on this repo are trained based-on **GanBasedTrainer** (see [train_melgan.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples_tts/melgan/train_melgan.py), [train_melgan_stft.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples_tts/melgan.stft/train_melgan_stft.py), [train_multiband_melgan.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples_tts/multiband_melgan/train_multiband_melgan.py)) and **Seq2SeqBasedTrainer** (see [train_tacotron2.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples_tts/tacotron2/train_tacotron2.py), [train_fastspeech.py](https://github.com/tensorspeech/TensorFlowTTS/blob/master/examples_tts/fastspeech/train_fastspeech.py)).
 
-# End-to-End Examples
+# End-to-End examples_tts
 You can know how to inference each model at [notebooks](https://github.com/tensorspeech/TensorFlowTTS/tree/master/notebooks) or see a [colab](https://colab.research.google.com/drive/1akxtrLZHKuMiQup00tzO2olCaN-y3KiD?usp=sharing) (for English), [colab](https://colab.research.google.com/drive/1ybWwOS5tipgPFttNulp77P6DAB5MtiuN?usp=sharing) (for Korean). Here is an example code for end2end inference with fastspeech and melgan.
 
 ```python
@@ -260,18 +260,18 @@ from tensorflow_tts.inference import TFAutoModel
 from tensorflow_tts.inference import AutoProcessor
 
 # initialize fastspeech model.
-fs_config = AutoConfig.from_pretrained('./examples/fastspeech/conf/fastspeech.v1.yaml')
+fs_config = AutoConfig.from_pretrained('./examples_tts/fastspeech/conf/fastspeech.v1.yaml')
 fastspeech = TFAutoModel.from_pretrained(
     config=fs_config,
-    pretrained_path="./examples/fastspeech/pretrained/model-195000.h5"
+    pretrained_path="./examples_tts/fastspeech/pretrained/model-195000.h5"
 )
 
 
 # initialize melgan model
-melgan_config = AutoConfig.from_pretrained('./examples/melgan/conf/melgan.v1.yaml')
+melgan_config = AutoConfig.from_pretrained('./examples_tts/melgan/conf/melgan.v1.yaml')
 melgan = TFAutoModel.from_pretrained(
     config=melgan_config,
-    pretrained_path="./examples/melgan/checkpoint/generator-1500000.h5"
+    pretrained_path="./examples_tts/melgan/checkpoint/generator-1500000.h5"
 )
 
 

@@ -26,7 +26,7 @@ from tensorflow_tts.configs import Tacotron2Config
 from tensorflow_tts.models import TFTacotron2
 from tensorflow_tts.utils import return_strategy
 
-from examples.tacotron2.train_tacotron2 import Tacotron2Trainer
+from examples_tts.tacotron2.train_tacotron2 import Tacotron2Trainer
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
@@ -39,13 +39,13 @@ logging.basicConfig(
 @pytest.mark.parametrize(
     "var_train_expr, config_path",
     [
-        ("embeddings|decoder_cell", "./examples/tacotron2/conf/tacotron2.v1.yaml"),
-        (None, "./examples/tacotron2/conf/tacotron2.v1.yaml"),
+        ("embeddings|decoder_cell", "./examples_tts/tacotron2/conf/tacotron2.v1.yaml"),
+        (None, "./examples_tts/tacotron2/conf/tacotron2.v1.yaml"),
         (
             "embeddings|decoder_cell",
-            "./examples/tacotron2/conf/tacotron2.baker.v1.yaml",
+            "./examples_tts/tacotron2/conf/tacotron2.baker.v1.yaml",
         ),
-        ("embeddings|decoder_cell", "./examples/tacotron2/conf/tacotron2.kss.v1.yaml"),
+        ("embeddings|decoder_cell", "./examples_tts/tacotron2/conf/tacotron2.kss.v1.yaml"),
     ],
 )
 def test_tacotron2_train_some_layers(var_train_expr, config_path):

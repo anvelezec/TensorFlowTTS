@@ -24,7 +24,7 @@ from tensorflow_tts.configs import FastSpeech2Config
 from tensorflow_tts.models import TFFastSpeech2
 from tensorflow_tts.utils import return_strategy
 
-from examples.fastspeech2.train_fastspeech2 import FastSpeech2Trainer
+from examples_tts.fastspeech2.train_fastspeech2 import FastSpeech2Trainer
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
@@ -37,12 +37,12 @@ logging.basicConfig(
 @pytest.mark.parametrize(
     "var_train_expr, config_path",
     [
-        (None, "./examples/fastspeech2/conf/fastspeech2.v1.yaml"),
-        ("embeddings|encoder", "./examples/fastspeech2/conf/fastspeech2.v1.yaml"),
-        ("embeddings|encoder", "./examples/fastspeech2/conf/fastspeech2.v2.yaml"),
-        ("embeddings|encoder", "./examples/fastspeech2/conf/fastspeech2.baker.v2.yaml"),
-        ("embeddings|encoder", "./examples/fastspeech2/conf/fastspeech2.kss.v1.yaml"),
-        ("embeddings|encoder", "./examples/fastspeech2/conf/fastspeech2.kss.v2.yaml"),
+        (None, ".//fastspeech2/conf/fastspeech2.v1.yaml"),
+        ("embeddings|encoder", "./examples_tts/fastspeech2/conf/fastspeech2.v1.yaml"),
+        ("embeddings|encoder", "./examples_tts/fastspeech2/conf/fastspeech2.v2.yaml"),
+        ("embeddings|encoder", "./examples_tts/fastspeech2/conf/fastspeech2.baker.v2.yaml"),
+        ("embeddings|encoder", "./examples_tts/fastspeech2/conf/fastspeech2.kss.v1.yaml"),
+        ("embeddings|encoder", "./examples_tts/fastspeech2/conf/fastspeech2.kss.v2.yaml"),
     ],
 )
 def test_fastspeech2_train_some_layers(var_train_expr, config_path):
