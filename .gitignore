@@ -42,5 +42,5 @@ dump_baker/
 dump_ljspeech/
 dump_kss/
 dump_libritts/
-/examples_tts/*/*
+/examples/*/*
 /notebooks/test_saved/
